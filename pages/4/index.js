@@ -28,7 +28,7 @@ const index = () => {
     return (
         <div className={styles.container}>
             <div>
-                <h3 className={styles.questHead}>Please upload your <span className={styles.highlightBlue}>MRI scan </span>?</h3>
+                <h3 className={styles.questHead}>Please upload your <span className={styles.highlightBlue}>MRI scan </span></h3>
                 <link rel="icon" href="/favicon.ico" />
             </div>
            <Input type="file" />

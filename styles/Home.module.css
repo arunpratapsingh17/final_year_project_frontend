@@ -113,6 +113,21 @@
 .logo {
   height: 1em;
 }
+.questHead{
+  font-weight: 900;
+  font-size: 36px;
+}
+.highlightBlue{
+  color: #5F62DB;
+}
+.input{
+  width: 350px;
+  margin-bottom: 100px;
+}
+.buttonCont{
+  margin-top: 100px;
+  padding-top: 100px;
+}
 
 @media (max-width: 600px) {
   .grid {

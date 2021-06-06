@@ -1,56 +1,64 @@
-import React from 'react'
+import React, {  useEffect, useState } from 'react'
 import styles from '../../styles/Home.module.css'
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
 import axios from 'axios';
-
+import LoadingComp from "../../Loading/LoadingComp"
+import result from '../../result/result';
 
 const index = () => {
-    const submitData=(e)=>{
-        e.preventDefault()
+    let l = false;
+    const [loading,setLoading] = useState(false);
+    const [ans,setAns] = useState(null);
+    const [send,setSend] = useState(false)
+
+
+    const submitData=async(e)=>{
+        // setLoading(true)
+        e.preventDefault();
         let myForm = document.getElementById('myForm');
         let formData = new FormData(myForm);
-        // for (var value of formData.values()) {
-        //     console.log(value);
-        //  }
-        //  for (var value of formData.keys()) {
-        //     console.log(value);
-        //  }
         var object = {};
-            formData.forEach(function(value, key){
+        formData.forEach(function(value, key){
             object[key] = value;
         });
         console.log(object);
-        // var jsonData = JSON.stringify(object);
-        // console.log(jsonData);
          axios.post("https://alzhemy-be.herokuapp.com/predict",object).then((res)=>{
-             console.log(res);
+            //  console.log(loading);
+            console.log(res.data);
+            setAns(res.data);
+            alert(res.data)
+             console.log(ans);
+             setLoading(false);
+             l = false;
+             console.log(loading);
          })
     }
+
+// useEffect(()=>{
+//     if(ans=="CN"){
+//         alert("CN")
+//     }
+//     else if(ans=="MCI"){
+//         alert("MCI")
+//     }
+//     else{
+//         console.log("AD");
+//     }
+// },[ans])  
+
+  
+
+    // if(l===true){
+    //     return <LoadingComp />
+    // }
     return (
-        // <div className={styles.container}>
-        //     <div>
-        //         <h3 className={styles.questHead}>What's your <span className={styles.highlightBlue}>age </span>?</h3>
-        //         <link rel="icon" href="/favicon.ico" />
-        //     </div>
-        //     <form className={classes.root} noValidate autoComplete="off">
-        //         <div>
-        //             <TextField required id="standard-required" placeholder="please write your email-id  here" className={styles.input}/>
-        //         </div>
-        //         <br></br>
-        //     </form>
-        //     <Button className={classes.buttonCont} variant="contained" color="primary" href="/2" onClick={()=>{
-        //         console.log(form);
-        //     }}>
-        //          Submit
-        //     </Button>
-        // </div>
-        <div className={styles.parent}>
+         (loading)?(<LoadingComp  />):
+        (<div className={styles.parent}>
             <div className={styles.header} >
                 Answer the following questions to get your result
             </div>
-            <form className={styles.container} onSubmit={submitData} id="myForm">
+            <form className={styles.container} onSubmit={(e)=>submitData(e)} id="myForm">
             <div className={styles.question}>
               <label htmlFor="fname" >(1) What's your <a className={styles.highlighter}>AGE </a>?</label><br></br>
                <input type="number" className={styles.age_input} className={styles.input}  name="AGE" /><br></br>
@@ -132,7 +140,7 @@ const index = () => {
             </div><br></br>
             <input type="submit" name="Sign Up" className={styles.question} className={styles.button} />
         </form>
-        </div>
+        </div>)
     )
 }
 

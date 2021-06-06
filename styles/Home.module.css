@@ -136,6 +136,9 @@
     width: 100%;
     flex-direction: column;
   }
+  .header{
+    text-align: center;
+  }
 }
 .question{
   font-size: 2rem;
@@ -147,6 +150,8 @@
   
   display: block;
   margin : 10px  auto;
+  font-weight: bold;
+  line-height: 20px;
 }
 .options{
   margin : 10px  auto;

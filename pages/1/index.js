@@ -4,17 +4,25 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import LoadingComp from "../../Loading/LoadingComp"
-import result from '../../result/result';
+import Modal from "react-modal"
+
+const modal_para={
+    paddingTop:"70px",
+    textAlign:"center",
+    textDecoration:"none",
+}
 
 const index = () => {
     let l = false;
     const [loading,setLoading] = useState(false);
-    const [ans,setAns] = useState(null);
+    const [ans,setAns] = useState();
+    const [isOpen,setIsopen] = useState(false)
     const [send,setSend] = useState(false)
 
 
     const submitData=async(e)=>{
-        // setLoading(true)
+        setLoading(true);
+        console.log(loading);
         e.preventDefault();
         let myForm = document.getElementById('myForm');
         let formData = new FormData(myForm);
@@ -27,14 +35,14 @@ const index = () => {
             //  console.log(loading);
             console.log(res.data);
             setAns(res.data);
-            alert(res.data)
-             console.log(ans);
+            // console.log(ans);
              setLoading(false);
+             setIsopen(true)
              l = false;
              console.log(loading);
          })
     }
-
+    console.log(ans);
 // useEffect(()=>{
 //     if(ans=="CN"){
 //         alert("CN")
@@ -73,11 +81,11 @@ const index = () => {
                     </div>
             </div><br></br>
             <div className={styles.question}>
-                <label htmlFor="fname" >How many years of <a className={styles.highlighter}>FORMAL EDUCATION </a> do you have?</label><br></br>
+                <label htmlFor="fname" >(3) How many years of <a className={styles.highlighter}>FORMAL EDUCATION </a> do you have?</label><br></br>
                 <input type="number" id="fname" name="PTEDUCAT" className={styles.input} /><br></br>
             </div>
             <div id="ethnicity" className={styles.question}>
-                <label htmlFor="ethnicity">What's your <a className={styles.highlighter}>ETHNICITY </a>?</label><br></br>
+                <label htmlFor="ethnicity">(4) What's your <a className={styles.highlighter}>ETHNICITY </a>?</label><br></br>
                 <div className={styles.options}>
                     <input type="radio" id="unknown" name="PTETHCAT" value="Unknown" />
                     <label htmlFor="unknown">Unknown</label><br></br>
@@ -85,10 +93,12 @@ const index = () => {
                     <label htmlFor="nothisporlatino">Not Hisp/Latino</label><br></br>
                     <input type="radio" id="hisporlatino" name="PTETHCAT" value="Hisp/Latino" />
                     <label htmlFor="hisporlatino">Hisp/Latino</label><br></br>
+                    <input type="radio" id="hisporlatino" name="PTETHCAT" value="Hisp/Latino" />
+                    <label htmlFor="hisporlatino">Asian</label><br></br>
                 </div>
             </div><br></br>
             <div id="race" className={styles.question}>
-                <label htmlFor="race">What's your <a className={styles.highlighter}>RACE </a>?</label><br></br>
+                <label htmlFor="race">(5) What's your <a className={styles.highlighter}>RACE </a>?</label><br></br>
                 <div className={styles.options}>
                     <input type="radio" id="white" name="PTRACCAT" value="White" />
                     <label htmlFor="White">White</label><br></br>
@@ -97,7 +107,7 @@ const index = () => {
                 </div>
             </div><br></br>
             <div id="apoe4" className={styles.question}>
-                <label htmlFor="apoe4">What's your <a className={styles.highlighter}>APOE4 GENOTYPE </a>?</label><br></br>
+                <label htmlFor="apoe4">(6) What's your <a className={styles.highlighter}>APOE4 GENOTYPE </a>?</label><br></br>
                 <div className={styles.options}>
                     <input type="radio" id="zero" name="APOE4" value="0" />
                     <label htmlFor="0">0</label><br></br>
@@ -108,11 +118,11 @@ const index = () => {
                 </div>
             </div><br></br>
             <div className={styles.question}>
-                <label htmlFor="fname" className={styles.question}>What's your <a className={styles.highlighter}>MMSE SCORE </a> on cognitive test ?</label><br></br>
+                <label htmlFor="fname" className={styles.question}>(7) What's your <a className={styles.highlighter}>MMSE SCORE </a> on cognitive test ?</label><br></br>
                 <input type="number" id="mmse" name="MMSE" className={styles.input}  /><br></br>
             </div>
             <div id="imputed_genotype" className={styles.question}>
-                <label htmlFor="imputed_genotype">What's your  <a className={styles.highlighter}>CHALLENGE SPECIFIC DESIGNATION </a>?</label>
+                <label htmlFor="imputed_genotype">(8) What's your  <a className={styles.highlighter}>CHALLENGE SPECIFIC DESIGNATION </a>?</label>
                 <div className={styles.options}>
                     <input type="radio" id="true" name="imputed_genotype" value="True" />
                     <label htmlFor="True">True[Has imputed Genotypes]</label><br></br>
@@ -121,7 +131,7 @@ const index = () => {
                 </div>
             </div><br></br>
             <div id="apoe_genotype" className={styles.question}>
-                <label htmlFor="apoe_genotype">What's your  <a className={styles.highlighter}>APOE ALLELE 1 </a> and <a className={styles.highlighter}>ALLELE 2 GENOTYPES </a> ?</label>
+                <label htmlFor="apoe_genotype">(9) What's your  <a className={styles.highlighter}>APOE ALLELE 1 </a> and <a className={styles.highlighter}>ALLELE 2 GENOTYPES </a> ?</label>
                 <br></br>
                 <div className={styles.options}>
                     <input type="radio" id="option" name="APOE Genotype " value="3,4" />
@@ -140,6 +150,35 @@ const index = () => {
             </div><br></br>
             <input type="submit" name="Sign Up" className={styles.question} className={styles.button} />
         </form>
+        <Modal isOpen={isOpen} shouldCloseOnEsc={true} shouldCloseOnOverlayClick={true} onRequestClose={()=>setIsopen(false)} style={
+            {
+                overlay:{
+                    backgroundColor:'#9898ac',
+                },
+                content : {
+                    top                   : '50%',
+                    left                  : '50%',
+                    right                 : 'auto',
+                    bottom                : 'auto',
+                    marginRight           : '-50%',
+                    transform             : 'translate(-50%, -50%)',
+                    height:'400px',
+                    width:'300px',
+                    borderRadius:"20px",
+                  }
+            }
+        }>
+            <h1 style={{
+                // marginLeft:"35%",
+                // marginRight:"auto"
+                textAlign:"center",
+                border:"2px solid black",
+                color:"black"
+            }}>
+                {ans}
+            </h1>
+           {ans == "AD"?<p style={modal_para}>Our ML model predicts that you might convert to Alzheimer's Disease</p>:(ans=="MCI"?<p style={modal_para}>Our ML model predicts that you might convert to MCI(Mild Cognitive Impairment),which can be an early stage of the disease continuum including for Alzheimer's if the hallmark changes in the brain are present.</p>:(ans=="CN"?<p style={modal_para}>CN means your body will follow normal process of aging</p>:null))}
+        </Modal>
         </div>)
     )
 }

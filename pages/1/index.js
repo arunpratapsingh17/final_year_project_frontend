@@ -177,7 +177,7 @@ const index = () => {
             }}>
                 {ans}
             </h1>
-           {ans == "AD"?<p style={modal_para}>Our ML model predicts that you might convert to Alzheimer's Disease</p>:(ans=="MCI"?<p style={modal_para}>Our ML model predicts that you might convert to MCI(Mild Cognitive Impairment),which can be an early stage of the disease continuum including for Alzheimer's if the hallmark changes in the brain are present.</p>:(ans=="CN"?<p style={modal_para}>CN means your body will follow normal process of aging</p>:null))}
+           {ans == "AD"?<p style={modal_para}>Our ML model predicts that you have Alzheimer's Disease</p>:(ans=="MCI"?<p style={modal_para}>Our ML model predicts that you have MCI(Mild Cognitive Impairment),which is an early stage of the disease continuum including for Alzheimer's if the hallmark changes in the brain are present.</p>:(ans=="CN"?<p style={modal_para}>CN means your brain is normal</p>:null))}
         </Modal>
         </div>)
     )

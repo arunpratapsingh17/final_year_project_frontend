@@ -69,7 +69,7 @@ const index = () => {
             <form className={styles.container} onSubmit={(e)=>submitData(e)} id="myForm">
             <div className={styles.question}>
               <label htmlFor="fname" >(1) What's your <a className={styles.highlighter}>AGE </a>?</label><br></br>
-               <input type="number" className={styles.age_input} className={styles.input}  name="AGE" /><br></br>
+               <input type="number" min="10" className={styles.age_input} className={styles.input}  name="AGE" /><br></br>
             </div>
             <div id="sex" id="question" className={styles.question}>
                     <label htmlFor="sex">(2) What's your <a className={styles.highlighter}>SEX </a>?</label><br></br>
@@ -82,7 +82,7 @@ const index = () => {
             </div><br></br>
             <div className={styles.question}>
                 <label htmlFor="fname" >(3) How many years of <a className={styles.highlighter}>FORMAL EDUCATION </a> do you have?</label><br></br>
-                <input type="number" id="fname" name="PTEDUCAT" className={styles.input} /><br></br>
+                <input type="number" min="0"  id="fname" name="PTEDUCAT" className={styles.input} /><br></br>
             </div>
             <div id="ethnicity" className={styles.question}>
                 <label htmlFor="ethnicity">(4) What's your <a className={styles.highlighter}>ETHNICITY </a>?</label><br></br>
